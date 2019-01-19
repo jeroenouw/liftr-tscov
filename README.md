@@ -59,9 +59,22 @@ You can run "tscov --detail" to show all uncovered types.
 
 ## Contributing
 
-First clone this repo: `git clone https://github.com/jeroenouw/tscov.git`.  
-Change directory to this project.  
-Run `npm install` to install all the dependencies and you are good to go.  
+Want to file a bug, contribute some code, or improve documentation? Feel free to place an [issue](https://github.com/jeroenouw/tscov/issues).  
+
+First fork this project.  
+
+```shell
+git clone <your-forked-repo>
+npm install
+
+git checkout -b my-fix
+# fix some code...
+
+git commit -m "added this feature"
+git push origin my-fix
+```
+
+Lastly, open a pull request on Github.
 
 The following npm script are available
 
@@ -72,8 +85,6 @@ The following npm script are available
 - `npm run link-upstream` - add remote
 - `npm run sync` - fetch, checkout, merge and push
 - `npm run reset` - removes node modules, package-lock.json, lib and re-installs everything.
-
-Want to file a bug, contribute some code, or improve documentation? Feel free to place an [issue](https://github.com/jeroenouw/tscov/issues).
 
 ## License
 
