@@ -23,6 +23,7 @@ typings/
 # Source
 .vscode
 dist
+lib
 **/*.js
 **/*.css
 !*.config.js
