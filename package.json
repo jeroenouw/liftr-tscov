@@ -2,8 +2,8 @@
     "name": "tscov",
     "version": "1.0.0",
     "description": "TypeScript CLI to calculate type coverage",
-    "main": "dist/core.js",
-    "types": "dist/core.d.ts",
+    "main": "lib/core.js",
+    "types": "lib/core.d.ts",
     "repository": "https://github.com/jeroenouw/tscov.git",
     "author": "Jeroen Ouwehand",
     "license": "MIT",
@@ -14,7 +14,7 @@
         "test": "sudo npm i -g && tscov",
         "link-upstream": "git remote add upstream https://github.com/jeroenouw/tscov",
         "sync": "git fetch && git checkout master && git merge upstream/master && git push",
-        "reset": "rm -rf ./node_modules ./package-lock.json && npm install"
+        "reset": "rm -rf ./node_modules ./package-lock.json ./lib && npm install"
     },
     "typeCoverage": {
         "atLeast": 90
