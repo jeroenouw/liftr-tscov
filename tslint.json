@@ -1,0 +1,13 @@
+{
+    "extends": [
+        "tslint-config-standard",
+        "tslint-sonarts"
+    ],
+    "rules": {
+        "space-before-function-paren": [
+            true,
+            "never"
+        ]
+    }
+}
+  

@@ -1,0 +1,1 @@
+# TSCOV - TypeScript CLI to calculate type coverage
