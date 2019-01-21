@@ -1,7 +1,7 @@
-import ts from 'typescript'
-import * as path from 'path'
+import ts from 'typescript';
+import * as path from 'path';
 
-import { getTsConfigFilePath, getTsConfig, getRootNames } from './tsconfig'
+import { getTsConfigFilePath, getTsConfig, getRootNames } from './tsconfig';
 
 // tslint:disable-next-line:no-big-function
 export async function lint(project: string, detail: boolean, debug: boolean, files?: string[], oldProgram?: ts.Program): Promise<any> {

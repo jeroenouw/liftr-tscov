@@ -1,7 +1,7 @@
-import ts from 'typescript'
-import * as fs from 'fs'
-import * as path from 'path'
-import glob from 'glob'
+import ts from 'typescript';
+import * as fs from 'fs';
+import * as path from 'path';
+import glob from 'glob';
 
 export function getTsConfigFilePath(project: string): any {
   let configFilePath: string;
