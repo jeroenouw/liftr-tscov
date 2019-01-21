@@ -1,4 +1,4 @@
-# TSCOV - TypeScript CLI to calculate your projects type coverage
+# TSCOV - Calculate your type coverage within seconds with this TypeScript CLI
 
 [![tscov](https://img.shields.io/badge/dynamic/json.svg?label=tscov&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjeroenouw%2Ftscov%2Fmaster%2Fpackage.json)](https://github.com/jeroenouw/tscov)
 [![npmversion](https://img.shields.io/npm/v/tscov.svg)](https://github.com/jeroenouw/tscov)
@@ -9,34 +9,71 @@
 
 ### Globally
 
-First globally install `tscov` by running `npm i -g tscov` in the command line.  
-Go to your local project in the command line.  
-Followed by `tscov` to run the coverage of the types.  
+First globally install `tscov` by running the following in the command line. 
+
+```shell
+npm i tscov -g
+
+cd <your-repo-location>
+
+# To run the coverage of the types.
+tscov
+```
 
 ### Project
 
 Go to your local project in the command line.  
-Then install `tscov` as devDependency by running `npm i tscov --save-dev` in the command line.  
-And setup by adding an extra npm script in your `package.json` like this:
+Then install `tscov` as devDependency by running:
+
+```shell
+npm i tscov --save-dev
+```
+
+And set tscov up by adding an extra npm script in your `package.json` like this:
 
 ```json
 "scripts": {
-    "tscov": "tscov --at-least=NUMBER"
+    "tscov": "tscov -m NUMBER"
 },
+```
+
+Then you could run this with:
+
+```shell
+npm run tscov
 ```
 
 ## How to use
 
-You can use the following commands in the command line or in a project as npm script.  
+You can use the following commands in the command line or in a project as npm script:
 
-`tscov` - show max reachable coverage and covered/uncovered types  
-`tscov --at-least=NUMBER` - define your minimum wanted coverage by replacing `NUMBER` with `95` for example  
-`tscov --detail` - show uncovered types  
-`tscov --debug` - show debug info  
+```shell
+# Show max reachable coverage and covered/uncovered types
+tscov
+
+# Define your minimum wanted coverage % by replacing `NUMBER` (0-100) with `95` for example 
+tscov -m NUMBER
+tscov --min-coverage NUMBER
+
+# Show uncovered types  
+tscov -d
+tscov --details
+
+# Show debug info
+tscov --debug
+
+# Show version info
+tscov -v
+tscov --version
+
+# Show help
+tscov -h
+tscov --help
+```
 
 ## Example output
 
-Example by running this command: `tscov --at-least=95`.
+Example by running this command: `tscov --min-coverage=95`.
 
 ```shell
   _____   ____     ____    ___   __     __
@@ -54,7 +91,7 @@ The TypeScript CLI to calculate type coverage
 50 - types uncovered
 
 98.50% - coverage percentage
-You can run "tscov --detail" to show all uncovered types.
+You can run "tscov --details" to show all uncovered types.
 ```
 
 ## Contributing
