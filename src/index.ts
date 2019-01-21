@@ -1,20 +1,37 @@
-import minimist from 'minimist'
-import * as fs from 'fs'
-import * as util from 'util'
-import * as path from 'path'
+import minimist from 'minimist';
+import * as fs from 'fs';
+import * as util from 'util';
+import * as path from 'path';
 import {red, green, cyan, white} from 'kleur';
 
 const figlet = require('figlet');
+const program = require('commander');
 
-import * as packageJson from '../package.json'
-import { lint } from './core'
+import * as packageJson from '../package.json';
+import { lint } from './core';
 
 let suppressError: boolean = false;
 const existsAsync = util.promisify(fs.exists);
 const readFileAsync = util.promisify(fs.readFile);
 
+program
+	.version(showToolVersion())
+  .description(cyan('TypeScript CLI to calculate type coverage'))
+  .option('-m NUMBER, --min-coverage NUMBER', 'define your minimum wanted coverage % by replacing NUMBER (0-100) with 95 for example')
+  .option('-d, --details', 'Show uncovered types')
+  .option('--debug', 'Show debug info')
+
 function showToolVersion(): void {
   console.log(`Version: ${packageJson.version}`)
+}
+
+function showHelpLog(): void {
+  program.outputHelp();
+}
+
+function showIntroLog(): void {
+  console.log(figlet.textSync('TSCOV', {horizontalLayout: 'full'}));
+  console.log(cyan(`The TypeScript CLI to calculate type coverage`));
 }
 
 function endConsoleLogs(): void {
@@ -25,14 +42,19 @@ function endConsoleLogs(): void {
 
 // tslint:disable-next-line:cognitive-complexity no-big-function
 async function executeCommandLine(): Promise<any> {
-  console.log(cyan(figlet.textSync('TSCOV', {horizontalLayout: 'full'})));
-  console.log(cyan(`The TypeScript CLI to calculate type coverage`));
+  showIntroLog();
 
   const argv = minimist(process.argv.slice(2), { '--': true });
 
   const showVersion: boolean = argv.v || argv.version;
   if (showVersion) {
     showToolVersion();
+    return;
+  } 
+  
+  const showHelp: boolean = argv.h || argv.help;
+  if (showHelp) {
+    showHelpLog();
     return;
   }
 
@@ -41,10 +63,10 @@ async function executeCommandLine(): Promise<any> {
   const { correctCount, totalCount, anys } = await lint(argv.p || argv.project || '.', true, argv.debug);
   const openCount = totalCount - correctCount;
   const percent = Math.round(10000 * correctCount / totalCount) / 100;
-  const atLeast = await getAtLeast(argv);
-  const failed = atLeast && percent < atLeast;
-  const success = atLeast && percent > atLeast;
-  if (argv.detail || failed) {
+  const minCoverage = await getMinCoverage(argv);
+  const failed = minCoverage && percent < minCoverage;
+  const success = minCoverage && percent > minCoverage;
+  if (argv.d || argv.details || failed) {
     console.log('');
     console.log('------------- uncovered types ---------------');
     for (const { file, line, character, text } of anys) {
@@ -59,30 +81,30 @@ async function executeCommandLine(): Promise<any> {
   console.log(cyan(`${openCount}`) + ` - types uncovered`);
   console.log('');
   if (success) {
-    console.log(green(`${percent.toFixed(2)}%`) + ` - coverage percentage` +  white(`\nYou can run ` + cyan('"tscov --detail"') + ` to show all uncovered types.`));
+    console.log(green(`${percent.toFixed(2)}%`) + ` - coverage percentage` +  white(`\nYou can run ` + cyan('"tscov --details"') + ` to show all uncovered types.`));
   }
   if (failed) {
-    console.log((red(`${percent.toFixed(2)}%`) + white(` - the type coverage rate is lower than your target: `) + cyan(`${atLeast}%.`)));
+    console.log((red(`${percent.toFixed(2)}%`) + white(` - the type coverage rate is lower than your target: `) + cyan(`${minCoverage}%.`)));
   };
 };
 
-async function getAtLeast(argv: minimist.ParsedArgs): Promise<number | undefined> {
-  let atLeast: number | undefined;
+async function getMinCoverage(argv: minimist.ParsedArgs): Promise<number | undefined> {
+  let minCoverage: number | undefined;
   const packageJsonPath = path.resolve(process.cwd(), 'package.json')
   if (await existsAsync(packageJsonPath)) {
     const currentPackageJson: {
       typeCoverage?: {
-        atLeast?: number;
+        minCoverage?: number;
       };
     } = JSON.parse((await readFileAsync(packageJsonPath)).toString());
-    if (currentPackageJson.typeCoverage && currentPackageJson.typeCoverage.atLeast) {
-      atLeast = currentPackageJson.typeCoverage.atLeast;
+    if (currentPackageJson.typeCoverage && currentPackageJson.typeCoverage.minCoverage) {
+      minCoverage = currentPackageJson.typeCoverage.minCoverage;
     }
   }
-  if (argv['at-least']) {
-    atLeast = argv['at-least'];
+  if (argv['m'] || argv['min-coverage']) {
+    minCoverage = argv['m'] || argv['min-coverage']
   }
-  return atLeast;
+  return minCoverage;
 };
 
 executeCommandLine().then(() => {
