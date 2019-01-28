@@ -59,6 +59,9 @@ tscov --min-coverage NUMBER
 tscov -d
 tscov --details
 
+# Test specific folder or file
+tscov -p yourfolder/yourfile.ts || tscov --p yourfolder
+
 # Show debug info
 tscov --debug
 
