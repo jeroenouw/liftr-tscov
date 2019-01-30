@@ -48,31 +48,31 @@ npm run tscov
 You can use the following commands in the command line or in a project as npm script:
 
 ```shell
-# Show max reachable coverage and covered/uncovered types
+# Show max reachable coverage and covered/uncovered types (default 90% minimal coverage)
 tscov
 
 # Define your minimum wanted coverage % by replacing `NUMBER` (0-100) with `95` for example 
 tscov -m NUMBER
 tscov --min-coverage NUMBER
 
-# Show uncovered types  
+# Show all uncovered types  
 tscov -d
 tscov --details
 
 # Test specific folder
-tscov -p your-folder
+tscov -p PATH_TO_FOLDER/FOLDERNAME
 
 # Testing specific files
-tscov -p specify-path-to-folder/testfolder -f your-file.ts
+tscov -p PATH_TO_FOLDER/FOLDERNAME -f FILENAME.ts
 
-# Show debug info
+# Start debugging
 tscov --debug
 
-# Show version info
+# Show version
 tscov -v
 tscov --version
 
-# Show help
+# Show all available options
 tscov -h
 tscov --help
 ```

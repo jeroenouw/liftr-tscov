@@ -885,14 +885,11 @@ export async function lint(project: string, detail: boolean, debug: boolean, fil
     }
   }
 
-  
-
-
   for (const sourceFile of program.getSourceFiles()) {
     let file = sourceFile.fileName;
     if (!file.includes('node_modules') ) {
       file = path.relative(process.cwd(), file);
-      //checks if looking for a single file or a whole folder (if the arguement -f was given)
+      // checks if looking for a single file or a whole folder (if the arguement -f was given)
       if(files){
         sourceFile.forEachChild((node: any) => {
             if(file.includes(files)) {
@@ -905,8 +902,8 @@ export async function lint(project: string, detail: boolean, debug: boolean, fil
           handleNode(node, file, sourceFile);
         })
       }
+    }
   }
-}
 
   return { correctCount, totalCount, anys, program };
 }

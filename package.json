@@ -10,7 +10,7 @@
     "scripts": {
         "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
         "create": "npm run build && npm run test",
-        "build": "tsc -p .",
+        "build": " rm -rf ./lib && tsc -p .",
         "test": "sudo npm i -g && tscov",
         "link-upstream": "git remote add upstream https://github.com/jeroenouw/tscov",
         "sync": "git fetch && git checkout master && git merge upstream/master && git push",

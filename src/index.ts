@@ -2,24 +2,23 @@ import minimist from 'minimist';
 import * as fs from 'fs';
 import * as util from 'util';
 import * as path from 'path';
+import * as packageJson from '../package.json';
 import {red, green, cyan, white} from 'kleur';
+import {lint} from './tscov';
 
 const figlet = require('figlet');
 const program = require('commander');
-
-import * as packageJson from '../package.json';
-import { lint } from './core';
 
 let suppressError: boolean = false;
 const existsAsync = util.promisify(fs.exists);
 const readFileAsync = util.promisify(fs.readFile);
 
 program
-	.version(showToolVersion())
+  .version(showToolVersion())
   .description(cyan('TypeScript CLI to calculate type coverage'))
   .option('-m NUMBER, --min-coverage NUMBER', 'define your minimum wanted coverage % by replacing NUMBER (0-100) with 95 for example')
-  .option('-p FOLDERNAME', 'Test folder')
-  .option('-p FOLDERNAME -f, --file FILENAME', 'Test specific file')
+  .option('-p FOLDERNAME, --project FOLDERNAME', 'Test folder')
+  .option('-p FOLDERNAME -f FILENAME, --project FOLDERNAME --file FILENAME', 'Test specific file')
   .option('-d, --details', 'Show uncovered types')
   .option('--debug', 'Show debug info')
 
@@ -34,12 +33,6 @@ function showHelpLog(): void {
 function showIntroLog(): void {
   console.log(figlet.textSync('TSCOV', {horizontalLayout: 'full'}));
   console.log(cyan(`The TypeScript CLI to calculate type coverage`));
-}
-
-function endConsoleLogs(): void {
-  console.log('');
-  console.log('');
-  console.log('');
 }
 
 // tslint:disable-next-line:cognitive-complexity no-big-function
@@ -110,7 +103,9 @@ async function getMinCoverage(argv: minimist.ParsedArgs): Promise<number | undef
 };
 
 executeCommandLine().then(() => {
-  endConsoleLogs();
+  console.log('');
+  console.log('');
+  console.log('');
 }, error => {
   if (error instanceof Error) {
     console.log(red(error.message));
