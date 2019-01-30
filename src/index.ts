@@ -18,7 +18,8 @@ program
 	.version(showToolVersion())
   .description(cyan('TypeScript CLI to calculate type coverage'))
   .option('-m NUMBER, --min-coverage NUMBER', 'define your minimum wanted coverage % by replacing NUMBER (0-100) with 95 for example')
-  .option('-p FILENAME or FOLDERNAME/FILENAME', 'Test specific file or folder')
+  .option('-p FOLDERNAME', 'Test folder')
+  .option('-p FOLDERNAME -f, --file FILENAME', 'Test specific file')
   .option('-d, --details', 'Show uncovered types')
   .option('--debug', 'Show debug info')
 
@@ -61,7 +62,7 @@ async function executeCommandLine(): Promise<any> {
 
   suppressError = argv.suppressError;
 
-  const { correctCount, totalCount, anys } = await lint(argv.p || argv.project || '.', true, argv.debug);
+  const { correctCount, totalCount, anys } = await lint(argv.p || argv.project || '.', true, argv.debug, argv.f || argv.file);
   const openCount = totalCount - correctCount;
   const percent = Math.round(10000 * correctCount / totalCount) / 100;
   const minCoverage = await getMinCoverage(argv);

@@ -15,7 +15,7 @@ export function getTsConfigFilePath(project: string): any {
     configFilePath = project;
     dirname = path.dirname(project);
   } else {
-    throw new Error("paramter '-p' should be a file or directory.");
+    throw new Error("parameter '-p' should be a file or directory.");
   }
   return { configFilePath, dirname };
 }

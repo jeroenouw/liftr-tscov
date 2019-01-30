@@ -1,6 +1,6 @@
 {
     "name": "tscov",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "TypeScript CLI to calculate type coverage",
     "main": "lib/core.js",
     "types": "lib/core.d.ts",
