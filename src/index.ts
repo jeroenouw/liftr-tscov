@@ -61,7 +61,7 @@ async function executeCommandLine(): Promise<any> {
 
   suppressError = argv.suppressError;
 
-  const { correctCount, totalCount, anys } = await lint(argv.p || argv.project || '.', true, argv.debug);
+  const { correctCount, totalCount, anys } = await lint(argv.p || argv.project || '.', true, argv.debug, argv.f);
   const openCount = totalCount - correctCount;
   const percent = Math.round(10000 * correctCount / totalCount) / 100;
   const minCoverage = await getMinCoverage(argv);

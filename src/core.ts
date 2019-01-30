@@ -4,7 +4,7 @@ import * as path from 'path';
 import { getTsConfigFilePath, getTsConfig, getRootNames } from './tsconfig';
 
 // tslint:disable-next-line:no-big-function
-export async function lint(project: string, detail: boolean, debug: boolean, files?: string[], oldProgram?: ts.Program): Promise<any> {
+export async function lint(project: string, detail: boolean, debug: boolean, files?: any, oldProgram?: ts.Program): Promise<any> {
   const { configFilePath, dirname } = getTsConfigFilePath(project);
   const config = getTsConfig(configFilePath, dirname);
 
@@ -62,10 +62,9 @@ export async function lint(project: string, detail: boolean, debug: boolean, fil
       const { line, character } = ts.getLineAndCharacterOfPosition(sourceFile, node.getStart(sourceFile));
       console.log(`node: ${file}:${line + 1}:${character + 1}: ${node.getText(sourceFile)} ${node.kind}(kind)`);
     }
-
     handleNodes(node.decorators, file, sourceFile);
     handleNodes(node.modifiers, file, sourceFile);
-
+    
     switch (node.kind) {
       case ts.SyntaxKind.Unknown:
       case ts.SyntaxKind.EndOfFileToken:
@@ -886,15 +885,28 @@ export async function lint(project: string, detail: boolean, debug: boolean, fil
     }
   }
 
+  
+
+
   for (const sourceFile of program.getSourceFiles()) {
     let file = sourceFile.fileName;
-    if (!file.includes('node_modules') && (!files || files.includes(file))) {
+    if (!file.includes('node_modules') ) {
       file = path.relative(process.cwd(), file);
-      sourceFile.forEachChild((node: any) => {
-        handleNode(node, file, sourceFile);
-      })
-    }
+      //checks if looking for a single file or a whole folder (if the arguement -f was given)
+      if(files){
+        sourceFile.forEachChild((node: any) => {
+            if(file.includes(files)) {
+            handleNode(node, file, sourceFile);
+          }
+        })
+      }
+      else {
+        sourceFile.forEachChild((node: any) => {
+          handleNode(node, file, sourceFile);
+        })
+      }
   }
+}
 
   return { correctCount, totalCount, anys, program };
 }
