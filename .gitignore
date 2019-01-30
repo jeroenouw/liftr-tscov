@@ -11,9 +11,6 @@ coverage
 # Dependency directories
 node_modules/
 
-# Typescript declaration files
-typings/
-
 # Optional npm cache directory
 .npm
 
