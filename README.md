@@ -63,7 +63,6 @@ tscov --details
 tscov -p your-folder
 
 # Testing specific files
-
 tscov -p specify-path-to-folder/testfolder -f your-file.ts
 
 # Show debug info
