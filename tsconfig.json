@@ -2,6 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
+        "baseUrl": "./",
         "lib": [
             "dom",
             "es5",
@@ -23,6 +24,7 @@
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
+        "suppressImplicitAnyIndexErrors": true,
         "emitDecoratorMetadata": true,
         "skipLibCheck": true,
         "newLine": "LF",
