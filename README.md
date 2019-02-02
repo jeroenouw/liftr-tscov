@@ -1,6 +1,6 @@
-# TSCOV - Calculate your type coverage within seconds with this TypeScript CLI
+# TSCOV - Check the type coverage of any TypeScript project with this easy npm package
 
-[![tscov](https://img.shields.io/badge/dynamic/json.svg?label=tscov&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjeroenouw%2Ftscov%2Fmaster%2Fpackage.json)](https://github.com/jeroenouw/tscov)
+[![tscov](https://img.shields.io/badge/dynamic/json.svg?label=tscov&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.minCoverage&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjeroenouw%2Ftscov%2Fmaster%2Fpackage.json)](https://github.com/jeroenouw/tscov)
 [![npmversion](https://img.shields.io/npm/v/tscov.svg)](https://github.com/jeroenouw/tscov)
 [![npmlicense](https://img.shields.io/npm/l/tscov.svg)](https://github.com/jeroenouw/AngularMaterialFirebase/blob/master/LICENSE/)
 [![downloads](https://img.shields.io/npm/dy/tscov.svg)](https://github.com/jeroenouw/tscov)
@@ -61,9 +61,11 @@ tscov --details
 
 # Test specific folder
 tscov -p PATH_TO_FOLDER/FOLDERNAME
+tscov --project PATH_TO_FOLDER/FOLDERNAME
 
 # Testing specific files
 tscov -p PATH_TO_FOLDER/FOLDERNAME -f FILENAME.ts
+tscov --project PATH_TO_FOLDER/FOLDERNAME --file FILENAME.ts
 
 # Start debugging
 tscov --debug
@@ -121,10 +123,9 @@ Lastly, open a pull request on Github.
 
 The following npm script are available
 
-- `npm start` - watch files
-- `npm run create` - create build, install globally and run tscov
+- `npm start` - create build, install globally and run tscov
 - `npm run build` - create build
-- `npm test` - install globally and run tscov
+- `npm run global` - install globally and run tscov
 - `npm run link-upstream` - add remote
 - `npm run sync` - fetch, checkout, merge and push
 - `npm run reset` - removes node modules, package-lock.json, lib and re-installs everything.
