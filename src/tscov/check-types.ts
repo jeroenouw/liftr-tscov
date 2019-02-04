@@ -1,50 +1,50 @@
-import 'reflect-metadata';
-import ts from 'typescript';
-import * as path from 'path';
+import 'reflect-metadata'
+import ts from 'typescript'
+import * as path from 'path'
 
-import {injectable, inject} from 'inversify';
-import {TsConfig} from './ts-config';
-import {JsonConfig} from './types/json-config.type';
+import { injectable, inject } from 'inversify'
+import { TsConfig } from './ts-config'
+import { JsonConfig } from './types/json-config.type'
 
 @injectable()
 export class CheckTypes {
 
   constructor(@inject('TsConfig') private tsConfig: TsConfig) {}
-   
+
   // tslint:disable-next-line:no-big-function
   public async startLinter(project: string, detail: boolean, debug: boolean, files?: any, oldProgram?: ts.Program): Promise<any> {
-    const { configFilePath, dirname } = this.tsConfig.getTsConfigFilePath(project);
-    const config: JsonConfig = this.tsConfig.getTsConfig(configFilePath, dirname);
+    const { configFilePath, dirname } = this.tsConfig.getTsConfigFilePath(project)
+    const config: JsonConfig = this.tsConfig.getTsConfig(configFilePath, dirname)
 
-    const { options: compilerOptions, errors } = ts.convertCompilerOptionsFromJson(config.compilerOptions, dirname);
+    const { options: compilerOptions, errors } = ts.convertCompilerOptionsFromJson(config.compilerOptions, dirname)
     if (errors && errors.length > 0) {
-      throw errors;
+      throw errors
     }
 
-    const rootNames: string[] = await this.tsConfig.getRootNames(config, dirname);
+    const rootNames: string[] = await this.tsConfig.getRootNames(config, dirname)
 
-    const program: ts.Program = ts.createProgram(rootNames, compilerOptions, undefined, oldProgram);
-    const checker: ts.TypeChecker = program.getTypeChecker();
+    const program: ts.Program = ts.createProgram(rootNames, compilerOptions, undefined, oldProgram)
+    const checker: ts.TypeChecker = program.getTypeChecker()
 
-    let correctCount: number = 0;
-    let totalCount: number = 0;
-    let anys: { file: string, line: number, character: number, text: string }[] = [];
+    let correctCount: number = 0
+    let totalCount: number = 0
+    let anys: { file: string, line: number, character: number, text: string }[] = []
 
     function collectData(node: ts.Node, file: string, sourceFile: ts.SourceFile): void {
-      const type: ts.Type = checker.getTypeAtLocation(node);
+      const type: ts.Type = checker.getTypeAtLocation(node)
       if (type) {
-        const { line, character } = ts.getLineAndCharacterOfPosition(sourceFile, node.getStart(sourceFile));
-        totalCount++;
+        const { line, character } = ts.getLineAndCharacterOfPosition(sourceFile, node.getStart(sourceFile))
+        totalCount++
         if (type.flags === 1 && (type as any).intrinsicName === 'any') {
           if (debug) {
-            console.log(`type === any: ${file}:${line + 1}:${character + 1}: ${node.getText(sourceFile)}`);
+            console.log(`type === any: ${file}:${line + 1}:${character + 1}: ${node.getText(sourceFile)}`)
           } else if (detail) {
-            anys.push({ file, line, character, text: node.getText(sourceFile) });
+            anys.push({ file, line, character, text: node.getText(sourceFile) })
           }
         } else {
-          correctCount++;
+          correctCount++
           if (debug) {
-            console.log(`type !== any: ${file}:${line + 1}:${character + 1}: ${node.getText(sourceFile)} ${node.kind}(kind) ${type.flags}(flag) ${(type as any).intrinsicName || ''}`);
+            console.log(`type !== any: ${file}:${line + 1}:${character + 1}: ${node.getText(sourceFile)} ${node.kind}(kind) ${type.flags}(flag) ${(type as any).intrinsicName || ''}`)
           }
         }
       }
@@ -52,27 +52,27 @@ export class CheckTypes {
 
     function handleMultipleNodes(nodes: ts.NodeArray<ts.Node> | undefined, file: string, sourceFile: ts.SourceFile): void {
       if (nodes === undefined) {
-        return;
+        return
       }
 
       for (const node of nodes) {
-        handleSingleNode(node, file, sourceFile);
+        handleSingleNode(node, file, sourceFile)
       }
     }
 
     // tslint:disable-next-line:no-big-function
     function handleSingleNode(node: ts.Node | undefined, file: string, sourceFile: ts.SourceFile): void {
       if (node === undefined) {
-        return;
+        return
       }
 
       if (debug) {
-        const { line, character } = ts.getLineAndCharacterOfPosition(sourceFile, node.getStart(sourceFile));
-        console.log(`node: ${file}:${line + 1}:${character + 1}: ${node.getText(sourceFile)} ${node.kind}(kind)`);
+        const { line, character } = ts.getLineAndCharacterOfPosition(sourceFile, node.getStart(sourceFile))
+        console.log(`node: ${file}:${line + 1}:${character + 1}: ${node.getText(sourceFile)} ${node.kind}(kind)`)
       }
-      handleMultipleNodes(node.decorators, file, sourceFile);
-      handleMultipleNodes(node.modifiers, file, sourceFile);
-      
+      handleMultipleNodes(node.decorators, file, sourceFile)
+      handleMultipleNodes(node.modifiers, file, sourceFile)
+
       switch (node.kind) {
         case ts.SyntaxKind.Unknown:
         case ts.SyntaxKind.EndOfFileToken:
@@ -889,32 +889,29 @@ export class CheckTypes {
         case ts.SyntaxKind.Count:
           break
         default:
-          console.log(`warning: unhandled node kind: ${node.kind}`);
+          console.log(`warning: unhandled node kind: ${node.kind}`)
       }
     }
 
     for (const sourceFile of program.getSourceFiles()) {
-      let file = sourceFile.fileName;
-      if (!file.includes('node_modules') ) {
-        file = path.relative(process.cwd(), file);
+      let file = sourceFile.fileName
+      if (!file.includes('node_modules')) {
+        file = path.relative(process.cwd(), file)
         // checks if looking for a single file or a whole folder (if the arguement -f was given)
         if (files) {
           sourceFile.forEachChild((node: any) => {
-              if (file.includes(files)) {
-              return handleSingleNode(node, file, sourceFile);
+            if (file.includes(files)) {
+              return handleSingleNode(node, file, sourceFile)
             }
           })
-        }
-        else {
+        } else {
           sourceFile.forEachChild((node: any) => {
-            return handleSingleNode(node, file, sourceFile);
+            return handleSingleNode(node, file, sourceFile)
           })
         }
       }
     }
 
-    return { correctCount, totalCount, anys, program };
-  } 
+    return { correctCount, totalCount, anys, program }
+  }
 }
-
-

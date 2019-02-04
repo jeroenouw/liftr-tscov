@@ -1,15 +1,15 @@
-import * as packageJson from '../../package.json';
-import {cyan} from 'kleur';
-import {injectable} from 'inversify';
+import * as packageJson from '../../package.json'
+import { cyan } from 'kleur'
+import { injectable } from 'inversify'
 
-const program = require('commander');
+const program = require('commander')
 
 @injectable()
 export class Options {
 
   constructor() {}
 
-  public showOptions(): void  {
+  public showOptions(): void {
     return program
       .version(packageJson.version)
       .description(cyan('TypeScript CLI to calculate type coverage'))
@@ -19,5 +19,5 @@ export class Options {
       .option('-d, --details', 'Show uncovered types')
       .option('--debug', 'Show debug info')
       .outputHelp()
-    }
+  }
 }
