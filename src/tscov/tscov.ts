@@ -55,7 +55,19 @@ export class Tscov {
       return
     }
 
-    const { correctCount, totalCount, anys } = await this.checkTypes.startLinter(argv.p || argv.project || '.', true, argv.debug, argv.f || argv.file)
+    let projectInput: string = argv.p || argv.project
+    const fileInput: string = argv.f || argv.file
+
+    if (projectInput === undefined && argv._.length === 0) {
+      projectInput = '.'
+    }
+
+    if (projectInput === undefined && fileInput === undefined && !showHelp && !showVersion) {
+      console.error(red('Unknown command, run tscov -h or tscov --help for a list of commands.'))
+      return
+    }
+
+    const { correctCount, totalCount, anys } = await this.checkTypes.startLinter(projectInput, true, argv.debug, fileInput)
     const openCount: number = totalCount - correctCount
     const percentage: number = Math.round(10000 * correctCount / totalCount) / 100
     const minCoverage: number | undefined = await this.minCoverage.getMinCoverage(argv)
