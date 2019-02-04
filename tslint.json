@@ -7,7 +7,8 @@
         "space-before-function-paren": [
             true,
             "never"
-        ]
+        ],
+        "no-empty": false
     }
 }
   
