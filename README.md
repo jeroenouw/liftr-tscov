@@ -1,18 +1,20 @@
 # TSCOV - Check the type coverage of any TypeScript project with this easy npm package
 
-[![tscov](https://img.shields.io/badge/dynamic/json.svg?label=tscov&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.minCoverage&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjeroenouw%2Ftscov%2Fmaster%2Fpackage.json)](https://github.com/jeroenouw/tscov)
-[![npmversion](https://img.shields.io/npm/v/tscov.svg)](https://github.com/jeroenouw/tscov)
-[![npmlicense](https://img.shields.io/npm/l/tscov.svg)](https://github.com/jeroenouw/AngularMaterialFirebase/blob/master/LICENSE/)
-[![downloads](https://img.shields.io/npm/dy/tscov.svg)](https://github.com/jeroenouw/tscov)
+The Liftr framework provides a structure and tools to build API's with TypeScript and express. This repo/package is for the coverage of types in TypeScript.
+
+[![tscov](https://img.shields.io/badge/dynamic/json.svg?label=tscov&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.minCoverage&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjeroenouw%2Fliftr-tscov%2Fmaster%2Fpackage.json)](https://github.com/jeroenouw/liftr-tscov)
+[![npmversion](https://img.shields.io/npm/v/tscov.svg)](https://github.com/jeroenouw/liftr-tscov)
+[![npmlicense](https://img.shields.io/npm/l/tscov.svg)](https://github.com/jeroenouw/liftr-tscov/blob/master/LICENSE/)
+[![downloads](https://img.shields.io/npm/dy/tscov.svg)](https://github.com/jeroenouw/liftr-tscov)
 
 ## Quick start
 
 ### Globally
 
-First globally install `tscov` by running the following in the command line. 
+First globally install `@liftr/tscov` by running the following in the command line. 
 
 ```shell
-npm i tscov -g
+npm i @liftr/tscov -g
 
 cd <your-repo-location>
 
@@ -23,10 +25,10 @@ tscov
 ### Project
 
 Go to your local project in the command line.  
-Then install `tscov` as devDependency by running:
+Then install `@liftr/tscov` as devDependency by running:
 
 ```shell
-npm i tscov --save-dev
+npm i @liftr/tscov --save-dev
 ```
 
 And set tscov up by adding an extra npm script in your `package.json` like this:
@@ -132,8 +134,4 @@ The following npm script are available
 
 ## License
 
-[![npmlicense](https://img.shields.io/npm/l/tscov.svg)](https://github.com/jeroenouw/tscov/blob/master/LICENSE/)
-
-## Credits
-
-[Plantain-00](https://github.com/plantain-00/type-coverage)
+[![npmlicense](https://img.shields.io/npm/l/liftr-tscov.svg)](https://github.com/jeroenouw/liftr-tscov/blob/master/LICENSE/)

@@ -1,17 +1,17 @@
 {
-    "name": "tscov",
-    "version": "1.3.3",
+    "name": "@liftr/tscov",
+    "version": "1.4.0",
     "description": "Check the type coverage of any TypeScript project with this easy npm package",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
-    "repository": "https://github.com/jeroenouw/tscov.git",
-    "author": "Jeroen Ouwehand",
+    "repository": "https://github.com/jeroenouw/liftr-tscov.git",
+    "author": "Jeroen Ouwehand @jeroenouw",
     "license": "MIT",
     "scripts": {
         "start": "npm run build && npm run global",
         "build": " rm -rf ./lib && tsc -p .",
         "global": "sudo npm i -g && tscov",
-        "link-upstream": "git remote add upstream https://github.com/jeroenouw/tscov",
+        "link-upstream": "git remote add upstream https://github.com/jeroenouw/liftr-tscov",
         "sync": "git fetch origin && git checkout master && git pull && git checkout <your-branch> && git merge master && git push",
         "reset": "rm -rf ./node_modules ./package-lock.json ./lib && npm install"
     },
@@ -23,6 +23,7 @@
     },
     "keywords": [
         "cli",
+        "liftr",
         "tscov",
         "typescript",
         "javascript",
