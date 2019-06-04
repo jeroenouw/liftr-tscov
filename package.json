@@ -1,6 +1,6 @@
 {
     "name": "@liftr/tscov",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "Check the type coverage of any TypeScript project with this easy npm package",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
