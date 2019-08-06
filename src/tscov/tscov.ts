@@ -22,7 +22,12 @@ export class Tscov {
   ) {
     try {
       this.executeTscov()
-        .then(() => this.showSpacesLog())
+        .then(success => {
+          this.showSpacesLog()
+          if (!success && !this.suppressError) {
+            process.exit(1)
+          }
+        })
         .catch((err) => console.error(err))
     } catch (error) {
       if (error instanceof Error) {
@@ -37,7 +42,7 @@ export class Tscov {
   }
 
   // tslint:disable-next-line:cognitive-complexity no-big-function
-  public async executeTscov(): Promise<any> {
+  public async executeTscov(): Promise<boolean> {
     this.showIntroLog()
 
     const argv = minimist(process.argv.slice(2), { '--': true })
@@ -46,13 +51,13 @@ export class Tscov {
     const showVersion: boolean = argv.v || argv.version
     if (showVersion) {
       this.showToolVersion()
-      return
+      return true
     }
 
     const showHelp: boolean = argv.h || argv.help
     if (showHelp) {
       this.showHelpLog()
-      return
+      return true
     }
 
     let projectInput: string = argv.p || argv.project
@@ -64,7 +69,7 @@ export class Tscov {
 
     if (projectInput === undefined && fileInput === undefined && !showHelp && !showVersion) {
       console.error(red('Unknown command, run tscov -h or tscov --help for a list of commands.'))
-      return
+      return false
     }
 
     const { correctCount, totalCount, anys } = await this.checkTypes.startLinter(projectInput, true, argv.debug, fileInput)
@@ -94,6 +99,8 @@ export class Tscov {
     if (failed) {
       console.log((red(`${percentage.toFixed(2)}%`) + white(` - the type coverage rate is lower than your target: `) + cyan(`${minCoverage}%.`)))
     }
+
+    return !failed
   }
 
   private showIntroLog(): void {
