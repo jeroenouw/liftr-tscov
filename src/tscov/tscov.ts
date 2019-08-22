@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import minimist from 'minimist'
 import * as path from 'path'
 import * as packageJson from '../../package.json'
-import { red, green, cyan, white } from 'kleur'
+import { red, green, cyan, white, default as kleur } from 'kleur'
 
 import { inject, injectable } from 'inversify'
 import { CheckTypes } from './check-types'
@@ -10,6 +10,8 @@ import { Options } from './options'
 import { MinCoverage } from './min-coverage'
 
 const figlet = require('figlet')
+
+kleur.enabled = require('color-support').level;
 
 @injectable()
 export class Tscov {
