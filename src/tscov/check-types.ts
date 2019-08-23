@@ -837,7 +837,6 @@ export class CheckTypes {
           break
         case ts.SyntaxKind.CatchClause:
           const catchClause = node as ts.CatchClause
-          handleSingleNode(catchClause.variableDeclaration, file, sourceFile)
           handleSingleNode(catchClause.block, file, sourceFile)
           break
         case ts.SyntaxKind.PropertyAssignment:
