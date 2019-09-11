@@ -11,7 +11,7 @@ import { MinCoverage } from './min-coverage'
 
 const figlet = require('figlet')
 
-kleur.enabled = require('color-support').level;
+kleur.enabled = require('color-support').level
 
 @injectable()
 export class Tscov {

@@ -3,9 +3,9 @@
 The Liftr framework provides a structure and tools to build API's with TypeScript and express. This repo/package is for the coverage of types in TypeScript.
 
 [![tscov](https://img.shields.io/badge/dynamic/json.svg?label=tscov&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.minCoverage&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjeroenouw%2Fliftr-tscov%2Fmaster%2Fpackage.json)](https://github.com/jeroenouw/liftr-tscov)
-[![npmversion](https://img.shields.io/npm/v/tscov.svg)](https://github.com/jeroenouw/liftr-tscov)
-[![npmlicense](https://img.shields.io/npm/l/tscov.svg)](https://github.com/jeroenouw/liftr-tscov/blob/master/LICENSE/)
-[![downloads](https://img.shields.io/npm/dy/tscov.svg)](https://github.com/jeroenouw/liftr-tscov)
+[![npmversion](https://img.shields.io/npm/v/@liftr/tscov.svg)](https://github.com/jeroenouw/liftr-tscov)
+[![npmlicense](https://img.shields.io/npm/l/@liftr/tscov.svg)](https://github.com/jeroenouw/liftr-tscov/blob/master/LICENSE/)
+[![downloads](https://img.shields.io/npm/dy/@liftr/tscov.svg)](https://github.com/jeroenouw/liftr-tscov)
 
 ## Quick start
 
