@@ -650,7 +650,6 @@ export class CheckTypes {
         case ts.SyntaxKind.TryStatement:
           const tryStatement = node as ts.TryStatement
           handleSingleNode(tryStatement.tryBlock, file, sourceFile)
-          handleSingleNode(tryStatement.catchClause, file, sourceFile)
           handleSingleNode(tryStatement.finallyBlock, file, sourceFile)
           break
         case ts.SyntaxKind.DebuggerStatement:
