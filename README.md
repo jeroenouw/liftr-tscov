@@ -131,7 +131,3 @@ The following npm script are available
 - `npm run link-upstream` - add remote
 - `npm run sync` - fetch, checkout, merge and push
 - `npm run reset` - removes node modules, package-lock.json, lib and re-installs everything.
-
-## License
-
-[![npmlicense](https://img.shields.io/npm/l/liftr-tscov.svg)](https://github.com/jeroenouw/liftr-tscov/blob/master/LICENSE/)
