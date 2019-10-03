@@ -1,6 +1,6 @@
 {
     "name": "@liftr/tscov",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "description": "Check the type coverage of any TypeScript project with this easy npm package",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -13,7 +13,8 @@
         "global": "sudo npm i -g && tscov",
         "link-upstream": "git remote add upstream https://github.com/jeroenouw/liftr-tscov",
         "sync": "git fetch origin && git checkout master && git pull && git checkout <your-branch> && git merge master && git push",
-        "reset": "rm -rf ./node_modules ./package-lock.json ./lib && npm install"
+        "reset": "rm -rf ./node_modules ./package-lock.json ./lib && npm install",
+        "publish-package": "npm run build && npm publish"
     },
     "typeCoverage": {
         "minCoverage": 90
