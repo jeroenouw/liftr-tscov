@@ -81,7 +81,7 @@ export class TsConfig {
 
   private async stat(file: string): Promise<fs.Stats | undefined> {
     return new Promise<fs.Stats | undefined>((resolve, reject) => {
-      fs.stat(file, (error: Error, stats: any) => {
+      fs.stat(file, (error: NodeJS.ErrnoException | null, stats: fs.Stats) => {
         if (error) {
           reject(undefined)
         } else {
