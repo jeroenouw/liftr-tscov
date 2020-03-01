@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ES5",
         "module": "commonjs",
         "baseUrl": "./",
         "lib": [
             "dom",
-            "es5",
-            "es2015",
-            "es2016",
-            "es2017"
+            "ES5",
+            "ES2015",
+            "ES2016",
+            "ES2017"
         ],     
         "outDir": "lib",         
         "rootDir": "src",
