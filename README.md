@@ -35,7 +35,7 @@ And set tscov up by adding an extra npm script in your `package.json` like this:
 
 ```json
 "scripts": {
-    "tscov": "tscov -m NUMBER"
+    "tscov": "tscov -m <number>"
 },
 ```
 
@@ -53,21 +53,21 @@ You can use the following commands in the command line or in a project as npm sc
 # Show max reachable coverage and covered/uncovered types (default 90% minimal coverage)
 tscov
 
-# Define your minimum wanted coverage % by replacing `NUMBER` (0-100) with `95` for example 
-tscov -m NUMBER
-tscov --min-coverage NUMBER
+# Define your minimum wanted coverage % by replacing `<number>` (0-100) with `95` for example 
+tscov -m <number>
+tscov --min-coverage <number>
 
 # Show all uncovered types  
 tscov -d
 tscov --details
 
 # Test specific folder
-tscov -p PATH_TO_FOLDER/FOLDERNAME
-tscov --project PATH_TO_FOLDER/FOLDERNAME
+tscov -p <path-to-folder/foldername>
+tscov --project <path-to-folder/foldername>
 
 # Testing specific files
-tscov -p PATH_TO_FOLDER/FOLDERNAME -f FILENAME.ts
-tscov --project PATH_TO_FOLDER/FOLDERNAME --file FILENAME.ts
+tscov -p <path-to-folder/foldername> -f <filename>.ts
+tscov --project <path-to-folder/foldername> --file <filename>.ts
 
 # Start debugging
 tscov --debug

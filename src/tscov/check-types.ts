@@ -344,10 +344,6 @@ export class CheckTypes {
           const arrayTypeNode = node as ts.ArrayTypeNode
           handleSingleNode(arrayTypeNode.elementType, file, sourceFile)
           break
-        case ts.SyntaxKind.TupleType:
-          const tupleTypeNode = node as ts.TupleTypeNode
-          handleMultipleNodes(tupleTypeNode.elementTypes, file, sourceFile)
-          break
         case ts.SyntaxKind.OptionalType:
           break
         case ts.SyntaxKind.RestType:
