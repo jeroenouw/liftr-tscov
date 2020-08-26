@@ -3,31 +3,26 @@ import * as util from 'util'
 import * as path from 'path'
 import minimist from 'minimist'
 
-import { injectable } from 'inversify'
+export async function getMinCoverage(argv: minimist.ParsedArgs): Promise<number | undefined>  {
+  let existsAsync = util.promisify(fs.stat)
+  let readFileAsync = util.promisify(fs.readFile)
 
-@injectable()
-export class MinCoverage {
-  public existsAsync = util.promisify(fs.stat)
-  public readFileAsync = util.promisify(fs.readFile)
+  let minCoverage: number | undefined
 
-  constructor() {}
-
-  public async getMinCoverage(argv: minimist.ParsedArgs): Promise<number | undefined> {
-    let minCoverage: number | undefined
-    const packageJsonPath = path.resolve(process.cwd(), 'package.json')
-    if (await this.existsAsync(packageJsonPath)) {
-      const currentPackageJson: {
-        typeCoverage?: {
-          minCoverage?: number;
-        };
-      } = JSON.parse((await this.readFileAsync(packageJsonPath)).toString())
-      if (currentPackageJson.typeCoverage && currentPackageJson.typeCoverage.minCoverage) {
-        minCoverage = currentPackageJson.typeCoverage.minCoverage
-      }
+  const packageJsonPath = path.resolve(process.cwd(), 'package.json')
+  if (await existsAsync(packageJsonPath)) {
+    const currentPackageJson: {
+      typeCoverage?: {
+        minCoverage?: number;
+      };
+    } = JSON.parse((await readFileAsync(packageJsonPath)).toString())
+    if (currentPackageJson.typeCoverage && currentPackageJson.typeCoverage.minCoverage) {
+      minCoverage = currentPackageJson.typeCoverage.minCoverage
     }
-    if (argv['m'] || argv['min-coverage']) {
-      minCoverage = argv['m'] || argv['min-coverage']
-    }
-    return minCoverage
   }
+  if (argv['m'] || argv['min-coverage']) {
+    minCoverage = argv['m'] || argv['min-coverage']
+  }
+
+  return minCoverage
 }

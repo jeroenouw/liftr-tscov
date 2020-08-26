@@ -1,33 +1,21 @@
 {
     "compilerOptions": {
-        "target": "ES5",
+        "target": "ESNext",
         "module": "commonjs",
         "baseUrl": "./",
-        "lib": [
-            "dom",
-            "ES5",
-            "ES2015",
-            "ES2016",
-            "ES2017"
-        ],     
+        "lib": ["ES6", "ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020", "ESNext"],
         "outDir": "lib",         
         "rootDir": "src",
-        "jsx": "react",
         "importHelpers": true,
-        "declaration": true,     
         "downlevelIteration": true,
         "strict": true,
         "noUnusedLocals": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "experimentalDecorators": true,
         "suppressImplicitAnyIndexErrors": true,
-        "emitDecoratorMetadata": true,
         "skipLibCheck": true,
-        "newLine": "LF",
         "noImplicitAny": true
     }
 }
